@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IProduce
 {
-    public void ProduceProduct();
+    public void ProduceProduct(Vector3 productPos);
 }
