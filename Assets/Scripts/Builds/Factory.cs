@@ -41,7 +41,18 @@ public class Factory : GenericBuild, IProduce, IReceive
         receivePrefab = ProductManager.Instance.ChooseProductPrefab(typeOfProductReceive);
         producePrefab = ProductManager.Instance.ChooseProductPrefab(typeOfProductProduce);
 
+        CalculateReceiveProductSize(receivePrefab.transform);
     }
+
+    private void CalculateReceiveProductSize(Transform transform)
+    {
+        var boxCollider = transform.gameObject.GetComponent<BoxCollider>();
+
+        offsetXIron = boxCollider.size.x * transform.localScale.x;
+        offsetZIron = boxCollider.size.y * transform.localScale.y;
+        offsetYIron = boxCollider.size.z * transform.localScale.z;
+    }
+
 
     private void AddReceiveProduct(Vector3 _spawnPos)
     {
@@ -90,9 +101,9 @@ public class Factory : GenericBuild, IProduce, IReceive
     private void PlaceNewIronAtReceivePos()
     {
         CalculateNewPosition();
-        Vector3 spawnPosition = receivePoint.transform.position + new Vector3(lengthIron * offsetXIron, widthIron * offsetYIron, -(heightIron * offsetZIron));
-        AddReceiveProduct(spawnPosition);
-        // iron in sword coroutine
+        Vector3 receivePos = receivePoint.transform.position + new Vector3(lengthIron * offsetXIron, widthIron * offsetYIron, -(heightIron * offsetZIron));
+        AddReceiveProduct(receivePos);
+        // iron in sword coroutine, maybe action to check (!!!)
     }
 
 
