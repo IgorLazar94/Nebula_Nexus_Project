@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5694131592145673855}
   - component: {fileID: 9048417104105315934}
   m_Layer: 0
-  m_Name: SpawnPoint
-  m_TagString: Untagged
+  m_Name: ReceivePoint
+  m_TagString: ReceivePoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5694131592730339056
 GameObject:
@@ -57,8 +57,8 @@ GameObject:
   - component: {fileID: 5694131592730339071}
   - component: {fileID: 1633747927571251437}
   m_Layer: 0
-  m_Name: ReceivePoint
-  m_TagString: Untagged
+  m_Name: SpawnPoint
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,7 +90,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5694131593570656401
 GameObject:
@@ -208,6 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e039477f985ba41a2e8c601f43dbc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 5694131592730339056}
+  receivePoint: {fileID: 5694131592145673840}
 --- !u!1001 &5694131592387116462
 PrefabInstance:
   m_ObjectHideFlags: 0

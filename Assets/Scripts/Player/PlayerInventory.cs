@@ -63,9 +63,14 @@ public class PlayerInventory : MonoBehaviour
                 if (!ironsList[i].activeSelf)
                 {
                     ironsList[i].SetActive(true);
-                } else
+                }
+                else
                 {
                     amount++;
+                    if (amount > ironsList.Count)
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -76,12 +81,16 @@ public class PlayerInventory : MonoBehaviour
                 if (ironsList[i].activeSelf)
                 {
                     ironsList[i].SetActive(false);
-                } else
+                }
+                else
                 {
                     amount++;
+                    if (amount > ironsList.Count)
+                    {
+                        return;
+                    }
                 }
             }
         }
-
     }
 }
