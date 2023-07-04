@@ -58,12 +58,12 @@ public class PlayerTriggerController : MonoBehaviour
     {
         if (collider.transform.parent.gameObject.TryGetComponent(out Factory factory))
         {
-            if (collider.CompareTag(TagList.SpawnPoint) && playerInventory.playerCargoType == TypeOfProduct.Iron)
+            if (collider.CompareTag(TagList.ReceivePoint) && playerInventory.playerCargoType == TypeOfProduct.Iron)
             {
                 int tempIron = playerInventory.RemovePlayerIronSlot();
                 factory.ReceiveProduct(tempIron);
             }
-            if (collider.CompareTag(TagList.ReceivePoint))
+            if (collider.CompareTag(TagList.SpawnPoint))
             {
 
             }
