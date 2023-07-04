@@ -7,16 +7,25 @@ public class Spawner : GenericBuild, IProduce
     [SerializeField] private TypeOfProduct typeOfProduct;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float spawnerProduceTimer;
+    [SerializeField] ProductManager productManager;
+
     private GameObject productPrefab;
     private int countOfReadyProduct = 0;
 
-    private float offset = 0.6f;
-    private int rowCount = 5;
-    private int columnCount = 5;
+    private float offsetX;
+    private float offsetY;
+    private float offsetZ;
+
+    private int widthLimit = 4;
+    private int lengthLimit = 2;
+
+    private float length = 0;
+    private float height = 0;
+    private float width = 0;
 
     private void Start()
     {
-        productPrefab = ProductManager.Instance.ChooseProductPrefab(typeOfProduct);
+        productPrefab = productManager.ChooseProductPrefab(typeOfProduct);
         CalculateGridSize(productPrefab.transform);
         StartCoroutine(SpawnIron());
     }
@@ -36,21 +45,37 @@ public class Spawner : GenericBuild, IProduce
         }
     }
 
+
     private void ChoosePositionForInst()
     {
-        for (int row = 0; row < rowCount; row++)
-        {
-            for (int column = 0; column < columnCount; column++)
-            {
-                Vector3 spawnPosition = transform.position + new Vector3(row * offset, 0, column * offset);
+        Vector3 spawnPosition = spawnPoint.position + new Vector3(length * offsetX, width * offsetY, -(height * offsetZ));
 
-                ProduceProduct(spawnPosition);
+        ProduceProduct(spawnPosition);
+        CalculateNewPosition();
+    }
+
+    private void CalculateNewPosition()
+    {
+        length++;
+        if (length > widthLimit)
+        {
+            length = 0;
+            height++;
+            if (height > lengthLimit)
+            {
+                length = 0;
+                height = 0;
+                width++;
             }
         }
     }
 
     private void CalculateGridSize(Transform transform)
     {
+        var boxCollider = transform.gameObject.GetComponent<BoxCollider>();
 
+        offsetX = boxCollider.size.x * transform.localScale.x;
+        offsetZ = boxCollider.size.y * transform.localScale.y;
+        offsetY = boxCollider.size.z * transform.localScale.z;
     }
 }

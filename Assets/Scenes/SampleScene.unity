@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca5e03d768f3e94e94cae81d05f10af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IronPrefab: {fileID: 0}
-  SwordPrefab: {fileID: 0}
+  IronPrefab: {fileID: 7014612484224734597, guid: 2fee68409a35b1b4eb5f6be0facfd162, type: 3}
+  SwordPrefab: {fileID: 5712620404447441318, guid: 008ac97333c6e204ab95129518e44667, type: 3}
 --- !u!4 &500295436
 Transform:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &533752759
 GameObject:
@@ -915,7 +915,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &247359210538653066
 PrefabInstance:
@@ -925,8 +925,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 247359209683427480, guid: e97516786c3e6d7439e939e42be9569e, type: 3}
+      propertyPath: productManager
+      value: 
+      objectReference: {fileID: 500295435}
+    - target: {fileID: 247359209683427480, guid: e97516786c3e6d7439e939e42be9569e, type: 3}
       propertyPath: spawnerProduceTimer
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 247359209683527205, guid: e97516786c3e6d7439e939e42be9569e, type: 3}
       propertyPath: m_Name
@@ -975,6 +979,10 @@ PrefabInstance:
     - target: {fileID: 247359209683565061, guid: e97516786c3e6d7439e939e42be9569e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833518025990084974, guid: e97516786c3e6d7439e939e42be9569e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e97516786c3e6d7439e939e42be9569e, type: 3}

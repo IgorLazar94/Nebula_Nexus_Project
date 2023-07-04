@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 247359209683565061}
   - component: {fileID: 247359209684367909}
   - component: {fileID: 247359209685465317}
-  - component: {fileID: 247359209690813925}
   - component: {fileID: 247359209683427483}
   - component: {fileID: 247359209683427480}
   - component: {fileID: 6544792251375777667}
@@ -93,26 +92,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &247359209690813925
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 247359209683527205}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8066ce8eaec3bd44a97df2754f1bd665, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!65 &247359209683427483
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -140,7 +119,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeOfProduct: 0
   spawnPoint: {fileID: 833518025990084974}
-  spawnerProduceTimer: 0
+  spawnerProduceTimer: 1
+  productManager: {fileID: 0}
 --- !u!135 &6544792251375777667
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -178,7 +158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423979978623194333}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0, z: 0}
+  m_LocalPosition: {x: 1.2, y: 0, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
