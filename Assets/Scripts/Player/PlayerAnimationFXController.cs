@@ -10,14 +10,12 @@ public class PlayerAnimationFXController : MonoBehaviour
     {
         UI.JoyStickInput.isHasInputDirection += SetPlayerMove;
         UI.JoyStickInput.isNotHasInputDirection += SetPlayerStop;
-
     }
 
     private void OnDisable()
     {
         UI.JoyStickInput.isHasInputDirection -= SetPlayerMove;
         UI.JoyStickInput.isNotHasInputDirection -= SetPlayerStop;
-
     }
 
     private void Start()
