@@ -208,8 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e039477f985ba41a2e8c601f43dbc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 5694131592730339056}
-  receivePoint: {fileID: 5694131592145673840}
+  receivePoint: {fileID: 5694131592730339056}
 --- !u!1001 &5694131592387116462
 PrefabInstance:
   m_ObjectHideFlags: 0
