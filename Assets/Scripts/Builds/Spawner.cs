@@ -7,10 +7,9 @@ public class Spawner : GenericBuild, IProduce
     [SerializeField] private TypeOfProduct typeOfProduct;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float spawnerProduceTimer;
-    [SerializeField] ProductManager productManager;
 
     private GameObject productPrefab;
-    private int countOfReadyProduct = 0;
+    private List<Product> readyProducts = new List<Product>();
 
     private float offsetX;
     private float offsetY;
@@ -25,15 +24,16 @@ public class Spawner : GenericBuild, IProduce
 
     private void Start()
     {
-        productPrefab = productManager.ChooseProductPrefab(typeOfProduct);
+        productPrefab = ProductManager.Instance.ChooseProductPrefab(typeOfProduct);
         CalculateGridSize(productPrefab.transform);
         StartCoroutine(SpawnIron());
     }
 
     public void ProduceProduct(Vector3 productPos)
     {
-        Instantiate(productPrefab, productPos, productPrefab.transform.rotation);
-        countOfReadyProduct++;
+        GameObject productObject = Instantiate(productPrefab, productPos, productPrefab.transform.rotation);
+        Product product = productObject.gameObject.GetComponent<Product>();
+        readyProducts.Add(product);
     }
 
     private IEnumerator SpawnIron()
@@ -45,11 +45,9 @@ public class Spawner : GenericBuild, IProduce
         }
     }
 
-
     private void ChoosePositionForInst()
     {
         Vector3 spawnPosition = spawnPoint.position + new Vector3(length * offsetX, width * offsetY, -(height * offsetZ));
-
         ProduceProduct(spawnPosition);
         CalculateNewPosition();
     }
@@ -77,5 +75,24 @@ public class Spawner : GenericBuild, IProduce
         offsetX = boxCollider.size.x * transform.localScale.x;
         offsetZ = boxCollider.size.y * transform.localScale.y;
         offsetY = boxCollider.size.z * transform.localScale.z;
+    }
+
+    private void ResetReadyProducts()
+    {
+        width = 0;
+        length = 0;
+        height = 0;
+        for (int i = 0; i < readyProducts.Count; i++)
+        {
+            Destroy(readyProducts[i].gameObject);
+        }
+        readyProducts.Clear();
+    }
+
+    public int TransmitProduct()
+    {
+        int allProductsCount = readyProducts.Count;
+        ResetReadyProducts();
+        return allProductsCount;
     }
 }

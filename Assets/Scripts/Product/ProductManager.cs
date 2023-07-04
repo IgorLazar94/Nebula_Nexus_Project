@@ -9,10 +9,11 @@ public class ProductManager : MonoBehaviour
     [SerializeField] private GameObject IronPrefab;
     [SerializeField] private GameObject SwordPrefab;
 
-    private void Start()
+    private void Awake()
     {
         MakeSingleton();
     }
+    
 
     public GameObject ChooseProductPrefab(TypeOfProduct typeOfProduct)
     {

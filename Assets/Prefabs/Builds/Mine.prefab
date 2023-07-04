@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 247359209685465317}
   - component: {fileID: 247359209683427483}
   - component: {fileID: 247359209683427480}
-  - component: {fileID: 6544792251375777667}
   m_Layer: 0
   m_Name: Mine
   m_TagString: Untagged
@@ -120,20 +119,6 @@ MonoBehaviour:
   typeOfProduct: 0
   spawnPoint: {fileID: 833518025990084974}
   spawnerProduceTimer: 1
-  productManager: {fileID: 0}
---- !u!135 &6544792251375777667
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 247359209683527205}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1423979978623194333
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 833518025990084974}
+  - component: {fileID: 5544775879148685528}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -165,3 +151,16 @@ Transform:
   m_Father: {fileID: 247359209683565061}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5544775879148685528
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423979978623194333}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0.25}
