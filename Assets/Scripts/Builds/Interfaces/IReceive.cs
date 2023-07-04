@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IReceive
 {
-    public void ReceiveProduct();
+    public void ReceiveProduct(int productAmount);
 }

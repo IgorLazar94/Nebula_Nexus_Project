@@ -17,24 +17,20 @@ public class PlayerTriggerController : MonoBehaviour
         if (!playerInventory.isBusyInventory)
         {
             // all
-            if (other.transform.parent.gameObject.TryGetComponent(out Spawner spawner))
-            {
-                GetProductFromSpawner(spawner);
-            }
+            InteractionWithSpawner(other);
+            InteractionWithFactory(other);
         }
         else
         {
             if (playerInventory.playerCargoType == TypeOfProduct.Iron)
             {
-                if (other.transform.parent.gameObject.TryGetComponent(out Spawner spawner))
-                {
-                    GetProductFromSpawner(spawner);
-                }
+                InteractionWithSpawner(other);
+                InteractionWithFactory(other);
             }
 
             if (playerInventory.playerCargoType == TypeOfProduct.Sword)
             {
-                
+                InteractionWithFactory(other);
             }
 
         }
@@ -50,9 +46,29 @@ public class PlayerTriggerController : MonoBehaviour
 
     }
 
+    private void InteractionWithSpawner(Collider collider)
+    {
+        if (collider.transform.parent.gameObject.TryGetComponent(out Spawner spawner) && collider.CompareTag(TagList.SpawnPoint))
+        {
+            GetProductFromSpawner(spawner);
+        }
+    }
 
+    private void InteractionWithFactory(Collider collider)
+    {
+        if (collider.transform.parent.gameObject.TryGetComponent(out Factory factory))
+        {
+            if (collider.CompareTag(TagList.SpawnPoint) && playerInventory.playerCargoType == TypeOfProduct.Iron)
+            {
+                int tempIron = playerInventory.RemovePlayerIronSlot();
+                factory.ReceiveProduct(tempIron);
+            }
+            if (collider.CompareTag(TagList.ReceivePoint))
+            {
 
-
+            }
+        }
+    }
 
     private void GetProductFromSpawner(Spawner _spawner)
     {

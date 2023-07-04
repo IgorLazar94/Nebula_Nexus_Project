@@ -17,8 +17,17 @@ public class PlayerInventory : MonoBehaviour
 
     public void SetPlayerIronSlot(int value)
     {
-        ironSlotAmount = value;
+        ironSlotAmount += value;
         playerCargoType = TypeOfProduct.Iron;
         isBusyInventory = true;
     }
+
+    public int RemovePlayerIronSlot()
+    {
+        int ironsAmount = ironSlotAmount;
+        ironSlotAmount = 0;
+        isBusyInventory = false;
+        return ironsAmount;
+    }
+
 }

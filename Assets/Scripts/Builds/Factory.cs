@@ -4,13 +4,33 @@ using UnityEngine;
 
 public class Factory : GenericBuild, IProduce, IReceive
 {
-    public void ProduceProduct(Vector3 productPos)
+    private int ironOnFactory = 0;
+    private int swordsOnFactory = 0;
+
+    public void ProduceProduct(Vector3 setProductPos)
     {
         throw new System.NotImplementedException();
     }
 
-    public void ReceiveProduct()
+    public void ReceiveProduct(int productAmount)
     {
-        throw new System.NotImplementedException();
+        SetIronToFactory(productAmount);
+        SetPositionToIron();
+    }
+
+    private void SetIronToFactory(int ironAmount)
+    {
+        ironOnFactory += ironAmount;
+    }
+
+    private void SetPositionToIron()
+    {
+
+    }
+
+
+    private void Update()
+    {
+        Debug.Log(ironOnFactory + " ironOnFactory");
     }
 }
