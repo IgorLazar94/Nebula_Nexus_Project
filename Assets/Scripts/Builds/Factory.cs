@@ -6,6 +6,7 @@ public class Factory : GenericBuild, IProduce, IReceive
 {
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private GameObject receivePoint;
+
     private int ironOnFactory = 0;
     private int swordsOnFactory = 0;
 
