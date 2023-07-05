@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,12 +9,12 @@ public class Stockpile : GenericBuild
     private int swordsOnStockpile = 0;
     [SerializeField] private RectTransform stockpileCanvas;
     private TextMeshProUGUI swordsText;
-
+    private float timeToScaleCanvas = 0.5f;
     private void Start()
     {
         swordsText = GetComponentInChildren<TextMeshProUGUI>();
         UpdateSwordsText();
-        stockpileCanvas.gameObject.SetActive(false);
+        stockpileCanvas.DOScale(0f, timeToScaleCanvas);
     }
 
     public void AddSwordsToStockpile(int newSwords)
@@ -22,9 +23,18 @@ public class Stockpile : GenericBuild
         UpdateSwordsText();
     }
 
-    public void ActivateCanvas(bool value)
+    public void ActivateCanvas(bool isActivate)
     {
-        stockpileCanvas.gameObject.SetActive(value);
+        stockpileCanvas.gameObject.SetActive(isActivate);
+
+        if (isActivate)
+        {
+            stockpileCanvas.DOScale(0.2f, timeToScaleCanvas);
+        } else
+        {
+            stockpileCanvas.DOScale(0f, timeToScaleCanvas);
+        }
+
     }
 
     private void UpdateSwordsText()
