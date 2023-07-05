@@ -13,7 +13,7 @@ public class Stockpile : GenericBuild, IReceive
     private float timeToScaleCanvas = 0.5f;
     private List<Product> productList = new List<Product>();
     private float DOTweenTimer;
-    private float DOTweenTimerDefault = 0.1f;
+    private float DOTweenTimerDefault = 0.5f;
 
     private void Start()
     {
@@ -80,9 +80,9 @@ public class Stockpile : GenericBuild, IReceive
         {
             sword.gameObject.SetActive(true);
             DOTweenTimer += 0.1f;
-            sword.transform.DOMove(playerPos.position, 0.0f).OnComplete(() => sword.transform.DOMove(transform.position, 0.5f));
+            sword.transform.DOMove(playerPos.position, 0.0f).OnComplete(() => sword.transform.DOMove(transform.position, DOTweenTimer));
         }
-        Invoke(nameof(DiactivateSwords), 0.6f);
+        Invoke(nameof(DiactivateSwords), DOTweenTimer + 0.3f);
         DOTweenTimer = DOTweenTimerDefault;
     }
 
