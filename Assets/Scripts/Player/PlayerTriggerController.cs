@@ -33,15 +33,18 @@ public class PlayerTriggerController : MonoBehaviour
                 InteractionWithFactory(other);
         }
 
+        if (other.transform.parent.gameObject.TryGetComponent(out Stockpile stockpile))
+        {
+            InteractionWithStockpileCanvas(stockpile, true);
+        }
+    }
 
-
-
-
-
-
-
-
-
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.parent.gameObject.TryGetComponent(out Stockpile stockpile))
+        {
+            InteractionWithStockpileCanvas(stockpile, false);
+        }
     }
 
     private void InteractionWithSpawner(Collider collider)
@@ -107,8 +110,11 @@ public class PlayerTriggerController : MonoBehaviour
     {
         var swordsProduct = playerInventory.RemovePlayerSwordSlot();
         stockpile.AddSwordsToStockpile(swordsProduct);
-        //var swordsProduct = _spawner.TransmitProduct();
-        //playerInventory.SetPlayerIronSlot(swordsProduct);
+    }
+
+    private void InteractionWithStockpileCanvas(Stockpile stockpile, bool isActivate)
+    {
+        stockpile.ActivateCanvas(isActivate);
     }
 
 
