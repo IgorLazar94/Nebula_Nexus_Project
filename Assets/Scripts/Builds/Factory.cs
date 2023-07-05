@@ -41,8 +41,8 @@ public class Factory : GenericBuild, IProduce, IReceive
     private float offsetYSword;
     private float offsetZSword;
 
-    private int widthLimitSword = 3;
-    private int lengthLimitSword = 3;
+    private int widthLimitSword = 5;
+    private int lengthLimitSword = 1;
 
     private float lengthSword = 0;
     private float heightSword = 0;
@@ -181,7 +181,9 @@ public class Factory : GenericBuild, IProduce, IReceive
     private void AddSword()
     {
         CalculateNewSwordPosition();
-        Vector3 swordSpawnPos = spawnPoint.transform.position + new Vector3(lengthSword * offsetXSword, widthSword * offsetYSword, -(heightSword * offsetZSword));
+
+        Vector3 swordSpawnPos = spawnPoint.transform.position + new Vector3(lengthSword * offsetYSword, widthSword * offsetXSword, -(heightSword * offsetZSword));
+
         ProduceProduct(swordSpawnPos);
     }
 
@@ -191,9 +193,17 @@ public class Factory : GenericBuild, IProduce, IReceive
         {
             StopCoroutine(FabricaConvertsIron());
             isReadyToWork = false;
-            isCoroutineEnabled=false;
+            isCoroutineEnabled = false;
             ironsList.Clear();
+            ResetIronsContainer();
         }
+    }
+
+    private void ResetIronsContainer()
+    {
+        lengthIron = 0;
+        heightIron = 0;
+        widthIron = 0;
     }
 
 }
