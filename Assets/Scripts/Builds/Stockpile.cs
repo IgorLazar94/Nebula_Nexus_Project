@@ -26,10 +26,10 @@ public class Stockpile : GenericBuild, IReceive
         stockpileCanvas.DOScale(0f, timeToScaleCanvas);
     }
 
-    public void AddSwordsToStockpile(int newSwords)
-    {
+    //public void AddSwordsToStockpile(int newSwords)
+    //{
 
-    }
+    //}
 
     public void ActivateCanvas(bool isActivate)
     {
@@ -59,7 +59,7 @@ public class Stockpile : GenericBuild, IReceive
     public void ReceiveProduct(int productAmount)
     {
         swordsOnStockpile += productAmount;
-        // play DOTween swords from player to stockpile
+        //play DOTween swords from player to stockpile
         ActivateSwords();
 
         UpdateSwordsText();

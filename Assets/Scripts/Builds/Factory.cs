@@ -125,7 +125,7 @@ public class Factory : GenericBuild, IProduce, IReceive
     {
         GameObject produceObject = Instantiate(producePrefab, spawnPoint, producePrefab.transform.rotation);
         var tempScale = produceObject.transform.localScale;
-        produceObject.transform.DOScale(0f, 0.0f).OnComplete(() => produceObject.transform.DOScale(tempScale, 0.3f));
+        //produceObject.transform.DOScale(0f, 0.0f).OnComplete(() => produceObject.transform.DOScale(tempScale, 0.3f));
         Product product = produceObject.gameObject.GetComponent<Product>();
         swordsList.Add(product);
     }

@@ -95,6 +95,7 @@ public class PlayerTriggerController : MonoBehaviour
             }
             if (collider.CompareTag(TagList.SpawnPoint) && !factory.IsConnectWithPlayer)
             {
+                Debug.LogWarning("connect full invent");
                 factory.IsConnectWithPlayer = true;
                 GetProductFromFactory(factory);
             }
@@ -112,6 +113,7 @@ public class PlayerTriggerController : MonoBehaviour
             }
             if (collider.CompareTag(TagList.SpawnPoint) && playerInventory.playerCargoType == TypeOfProduct.Sword && !factory.IsConnectWithPlayer)
             {
+                Debug.LogWarning("connect");
                 factory.IsConnectWithPlayer = true;
                 GetProductFromFactory(factory);
             }
@@ -136,7 +138,7 @@ public class PlayerTriggerController : MonoBehaviour
     private void SetProductToStockpile(Stockpile stockpile)
     {
         var swordsProduct = playerInventory.RemovePlayerSwordSlot();
-        stockpile.AddSwordsToStockpile(swordsProduct);
+        stockpile.ReceiveProduct(swordsProduct);
     }
 
     private void InteractionWithStockpileCanvas(Stockpile stockpile, bool isActivate)
