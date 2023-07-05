@@ -26,6 +26,10 @@ public class PlayerTriggerController : MonoBehaviour
             {
                 InteractionWithSpawner(other);
             }
+            if (playerInventory.playerCargoType == TypeOfProduct.Sword)
+            {
+                InteractionWithStockpile(other);
+            }
                 InteractionWithFactory(other);
         }
 
@@ -45,6 +49,14 @@ public class PlayerTriggerController : MonoBehaviour
         if (collider.transform.parent.gameObject.TryGetComponent(out Spawner spawner) && collider.CompareTag(TagList.SpawnPoint))
         {
             GetProductFromSpawner(spawner);
+        }
+    }
+
+    private void InteractionWithStockpile(Collider collider)
+    {
+        if (collider.transform.parent.gameObject.TryGetComponent(out Stockpile stockpile) && collider.CompareTag(TagList.ReceivePoint))
+        {
+           SetProductToStockpile(stockpile);
         }
     }
 
@@ -91,5 +103,13 @@ public class PlayerTriggerController : MonoBehaviour
         var swordsProduct = _factory.TransmitSwords();
         playerInventory.SetPlayerSwordSlot(swordsProduct);
     }
+    private void SetProductToStockpile(Stockpile stockpile)
+    {
+        var swordsProduct = playerInventory.RemovePlayerSwordSlot();
+        stockpile.AddSwordsToStockpile(swordsProduct);
+        //var swordsProduct = _spawner.TransmitProduct();
+        //playerInventory.SetPlayerIronSlot(swordsProduct);
+    }
+
 
 }

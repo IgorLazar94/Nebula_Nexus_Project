@@ -53,6 +53,15 @@ public class PlayerInventory : MonoBehaviour
         isBusyInventory = true;
     }
 
+    public int RemovePlayerSwordSlot()
+    {
+        int swordsAmount = swordSlotAmount;
+        ChangeSwordViewInventory(swordsAmount, false);
+        swordSlotAmount = 0;
+        isBusyInventory = false;
+        return swordsAmount;
+    }
+
     public int RemovePlayerIronSlot()
     {
         int ironsAmount = ironSlotAmount;
