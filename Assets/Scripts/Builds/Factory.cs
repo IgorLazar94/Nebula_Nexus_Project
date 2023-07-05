@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class Factory : GenericBuild, IProduce, IReceive
 {
@@ -75,7 +76,8 @@ public class Factory : GenericBuild, IProduce, IReceive
 
     private void AddReceiveProduct(Vector3 _spawnPos)
     {
-        GameObject receiveObject = Instantiate(receivePrefab, _spawnPos, receivePrefab.transform.rotation);
+        GameObject receiveObject = Instantiate(receivePrefab, playerPos.transform.position, receivePrefab.transform.rotation);
+        receiveObject.transform.DOJump(_spawnPos, 3f, 1, 0.3f);
         Product product = receiveObject.gameObject.GetComponent<Product>();
         ironsList.Add(product);
     }
