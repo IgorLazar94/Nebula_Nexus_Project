@@ -45,12 +45,24 @@ public class PlayerTriggerController : MonoBehaviour
         {
             InteractionWithStockpileCanvas(stockpile, false);
         }
+
+        DisconnectSpawner(other);
+    }
+
+    private void DisconnectSpawner(Collider collider)
+    {
+        if (collider.transform.parent.gameObject.TryGetComponent(out Spawner spawner) && collider.CompareTag(TagList.SpawnPoint) && spawner.IsConnectWithPlayer)
+        {
+            spawner.IsConnectWithPlayer = false;
+        }
     }
 
     private void InteractionWithSpawner(Collider collider)
     {
-        if (collider.transform.parent.gameObject.TryGetComponent(out Spawner spawner) && collider.CompareTag(TagList.SpawnPoint))
+        if (collider.transform.parent.gameObject.TryGetComponent(out Spawner spawner) && collider.CompareTag(TagList.SpawnPoint) && !spawner.IsConnectWithPlayer)
         {
+            spawner.IsConnectWithPlayer = true;
+            //spawner.UpdatePlayerPos(transform.position);
             GetProductFromSpawner(spawner);
         }
     }

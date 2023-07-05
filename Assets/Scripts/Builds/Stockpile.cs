@@ -29,7 +29,6 @@ public class Stockpile : GenericBuild
 
     private void UpdateSwordsText()
     {
-        Debug.LogWarning(swordsText);
         swordsText.text = swordsOnStockpile.ToString();
     }
 

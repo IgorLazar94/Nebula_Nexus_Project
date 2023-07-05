@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spawner : GenericBuild, IProduce
 {
+    public bool IsConnectWithPlayer { get; set; }
     [SerializeField] private TypeOfProduct typeOfProduct;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float spawnerProduceTimer;

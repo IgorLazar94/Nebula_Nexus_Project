@@ -163,7 +163,7 @@ public class Factory : GenericBuild, IProduce, IReceive
 
     private void ConvertIronToSword()
     {
-        Debug.Log("Convert");
+        //Debug.Log("Convert");
         CheckRemainingIron();
         if (isReadyToWork)
         {

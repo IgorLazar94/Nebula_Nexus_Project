@@ -3594,7 +3594,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 247359209683427480, guid: e97516786c3e6d7439e939e42be9569e, type: 3}
       propertyPath: spawnerProduceTimer
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 247359209683527205, guid: e97516786c3e6d7439e939e42be9569e, type: 3}
       propertyPath: m_Name
