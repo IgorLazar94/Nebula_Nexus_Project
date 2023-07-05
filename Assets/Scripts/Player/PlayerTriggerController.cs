@@ -116,6 +116,10 @@ public class PlayerTriggerController : MonoBehaviour
     private void GetProductFromFactory(Factory _factory)
     {
         var swordsProduct = _factory.TransmitSwords();
+        if (swordsProduct <= 0)
+        {
+            return;
+        }
         playerInventory.SetPlayerSwordSlot(swordsProduct);
     }
     private void SetProductToStockpile(Stockpile stockpile)
