@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using UnityEditor.VersionControl;
 
 public class Factory : GenericBuild, IProduce, IReceive
 {
+    public bool IsConnectWithPlayer { get; set; }
+
     [SerializeField] private TypeOfProduct typeOfProductReceive;
     [SerializeField] private TypeOfProduct typeOfProductProduce;
 
@@ -121,6 +124,8 @@ public class Factory : GenericBuild, IProduce, IReceive
     public void ProduceProduct(Vector3 spawnPoint)
     {
         GameObject produceObject = Instantiate(producePrefab, spawnPoint, producePrefab.transform.rotation);
+        var tempScale = produceObject.transform.localScale;
+        produceObject.transform.DOScale(0f, 0.0f).OnComplete(() => produceObject.transform.DOScale(tempScale, 0.3f));
         Product product = produceObject.gameObject.GetComponent<Product>();
         swordsList.Add(product);
     }
@@ -206,13 +211,23 @@ public class Factory : GenericBuild, IProduce, IReceive
 
     private void ResetSwordsList()
     {
+
         widthSword = 0;
         lengthSword = 0;
         heightSword = 0;
         for (int i = 0; i < swordsList.Count; i++)
         {
+            swordsList[i].transform.DOJump(playerPos.position, 3f, 1, 0.2f);
+            Invoke(nameof(ResetList), 0.25f);
+        }
+    }
+    private void ResetList()
+    {
+        for (int i = 0; i < swordsList.Count; i++)
+        {
             Destroy(swordsList[i].gameObject);
         }
+
         swordsList.Clear();
     }
 

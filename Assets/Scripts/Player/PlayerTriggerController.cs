@@ -47,6 +47,7 @@ public class PlayerTriggerController : MonoBehaviour
         }
 
         DisconnectSpawner(other);
+        DisconnectFactory(other);
     }
 
     private void DisconnectSpawner(Collider collider)
@@ -54,6 +55,14 @@ public class PlayerTriggerController : MonoBehaviour
         if (collider.transform.parent.gameObject.TryGetComponent(out Spawner spawner) && collider.CompareTag(TagList.SpawnPoint) && spawner.IsConnectWithPlayer)
         {
             spawner.IsConnectWithPlayer = false;
+        }
+    }
+
+    private void DisconnectFactory(Collider collider)
+    {
+        if (collider.transform.parent.gameObject.TryGetComponent(out Factory factory) && collider.CompareTag(TagList.SpawnPoint) && factory.IsConnectWithPlayer)
+        {
+            factory.IsConnectWithPlayer = false;
         }
     }
 
@@ -84,8 +93,9 @@ public class PlayerTriggerController : MonoBehaviour
                 int tempIron = playerInventory.RemovePlayerIronSlot();
                 factory.ReceiveProduct(tempIron);
             }
-            if (collider.CompareTag(TagList.SpawnPoint))
+            if (collider.CompareTag(TagList.SpawnPoint) && !factory.IsConnectWithPlayer)
             {
+                factory.IsConnectWithPlayer = true;
                 GetProductFromFactory(factory);
             }
         }
@@ -100,8 +110,9 @@ public class PlayerTriggerController : MonoBehaviour
                 int tempIron = playerInventory.RemovePlayerIronSlot();
                 factory.ReceiveProduct(tempIron);
             }
-            if (collider.CompareTag(TagList.SpawnPoint) && playerInventory.playerCargoType == TypeOfProduct.Sword)
+            if (collider.CompareTag(TagList.SpawnPoint) && playerInventory.playerCargoType == TypeOfProduct.Sword && !factory.IsConnectWithPlayer)
             {
+                factory.IsConnectWithPlayer = true;
                 GetProductFromFactory(factory);
             }
         }
