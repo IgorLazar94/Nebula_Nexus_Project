@@ -46,13 +46,17 @@ public class Factory : GenericBuild, IProduce, IReceive
     private float heightSword = 0;
     private float widthSword = 0;
 
+    private float DOTweenTimer;
+    private float DOTweenTimerDefault = 0.03f;
+
+
     private void Start()
     {
         receivePrefab = ProductManager.Instance.ChooseProductPrefab(typeOfProductReceive);
         producePrefab = ProductManager.Instance.ChooseProductPrefab(typeOfProductProduce);
-
         CalculateReceiveProductSize(receivePrefab.transform);
         CalculateProduceProductSize(producePrefab.transform);
+        DOTweenTimer = DOTweenTimerDefault;
     }
 
     private void CalculateReceiveProductSize(Transform transform)
@@ -77,7 +81,7 @@ public class Factory : GenericBuild, IProduce, IReceive
     private void AddReceiveProduct(Vector3 _spawnPos)
     {
         GameObject receiveObject = Instantiate(receivePrefab, playerPos.transform.position, receivePrefab.transform.rotation);
-        receiveObject.transform.DOJump(_spawnPos, 3f, 1, 0.3f);
+        receiveObject.transform.DOJump(_spawnPos, 3f, 1, DOTweenTimer);
         Product product = receiveObject.gameObject.GetComponent<Product>();
         ironsList.Add(product);
     }
@@ -120,13 +124,14 @@ public class Factory : GenericBuild, IProduce, IReceive
         Product product = produceObject.gameObject.GetComponent<Product>();
         swordsList.Add(product);
     }
-
     public void ReceiveProduct(int productAmount)
     {
         for (int i = 0; i < productAmount; i++)
         {
+            DOTweenTimer += 0.02f;
             PlaceNewIronAtReceivePos();
         }
+        DOTweenTimer = DOTweenTimerDefault;
 
         if (isReadyToWork && !isCoroutineEnabled)
         {

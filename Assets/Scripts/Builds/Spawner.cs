@@ -34,6 +34,8 @@ public class Spawner : GenericBuild, IProduce
     public void ProduceProduct(Vector3 productPos)
     {
         GameObject productObject = Instantiate(productPrefab, productPos, productPrefab.transform.rotation);
+        var tempScale = productObject.transform.localScale;
+        productObject.transform.DOScale(0f, 0.0f).OnComplete(() => productObject.transform.DOScale(tempScale, 0.3f));
         Product product = productObject.gameObject.GetComponent<Product>();
         readyProducts.Add(product);
     }
