@@ -95,7 +95,6 @@ public class PlayerTriggerController : MonoBehaviour
             }
             if (collider.CompareTag(TagList.SpawnPoint) && !factory.IsConnectWithPlayer)
             {
-                Debug.LogWarning("connect full invent");
                 factory.IsConnectWithPlayer = true;
                 GetProductFromFactory(factory);
             }
@@ -113,7 +112,6 @@ public class PlayerTriggerController : MonoBehaviour
             }
             if (collider.CompareTag(TagList.SpawnPoint) && playerInventory.playerCargoType == TypeOfProduct.Sword && !factory.IsConnectWithPlayer)
             {
-                Debug.LogWarning("connect");
                 factory.IsConnectWithPlayer = true;
                 GetProductFromFactory(factory);
             }

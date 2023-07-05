@@ -23,7 +23,7 @@ public class Factory : GenericBuild, IProduce, IReceive
 
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private GameObject receivePoint;
-
+    private float timeToWorkFabrica = 2.0f;
 
     // Iron container config
     private float offsetXIron;
@@ -121,10 +121,14 @@ public class Factory : GenericBuild, IProduce, IReceive
         }
     }
 
-    public void ProduceProduct(Vector3 spawnPoint)
+    public void ProduceProduct(Vector3 newPoint)
     {
-        GameObject produceObject = Instantiate(producePrefab, spawnPoint, producePrefab.transform.rotation);
-        var tempScale = produceObject.transform.localScale;
+        GameObject produceObject = Instantiate(producePrefab, newPoint, producePrefab.transform.rotation);
+        produceObject.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        produceObject.transform.DOMove(spawnPoint.transform.position, timeToWorkFabrica / 2)
+                                .SetEase(Ease.Linear)
+                                .OnComplete(() => produceObject.transform.DOMove(newPoint, 0.1f));
+        //var tempScale = produceObject.transform.localScale;
         //produceObject.transform.DOScale(0f, 0.0f).OnComplete(() => produceObject.transform.DOScale(tempScale, 0.3f));
         Product product = produceObject.gameObject.GetComponent<Product>();
         swordsList.Add(product);
@@ -158,21 +162,31 @@ public class Factory : GenericBuild, IProduce, IReceive
         isCoroutineEnabled = true;
         while (true && isReadyToWork)
         {
-
-            yield return new WaitForSeconds(1.0f);
-            ConvertIronToSword();
+            CheckRemainingIron();
+            if (isReadyToWork)
+            {
+                OffsetIron();
+                yield return new WaitForSeconds(timeToWorkFabrica / 2);
+                AddSword();
+                yield return new WaitForSeconds(timeToWorkFabrica / 2);
+            }
         }
     }
 
     private void ConvertIronToSword()
     {
         //Debug.Log("Convert");
-        CheckRemainingIron();
-        if (isReadyToWork)
-        {
-            RemoveIron();
-            AddSword();
-        }
+
+    }
+
+    private void OffsetIron()
+    {
+        var ironProduct = ironsList[ironsList.Count - 1].gameObject;
+        //ironProduct.transform.position = receivePoint.transform.position;
+        ironProduct.transform.position = new Vector3(receivePoint.transform.position.x + 2, receivePoint.transform.position.y + 1, receivePoint.transform.position.z - 1);
+        ironProduct.transform.DOMove(transform.position, timeToWorkFabrica / 2)
+                             .SetEase(Ease.Linear)
+                             .OnComplete(() => RemoveIron());
     }
 
     private void RemoveIron()
