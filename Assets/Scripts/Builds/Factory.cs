@@ -21,9 +21,6 @@ public class Factory : GenericBuild, IProduce, IReceive
     [SerializeField] private GameObject receivePoint;
 
 
-    private int ironOnFactory = 0;
-    private int swordsOnFactory = 0;
-
     // Iron container config
     private float offsetXIron;
     private float offsetYIron;
@@ -124,8 +121,6 @@ public class Factory : GenericBuild, IProduce, IReceive
 
     public void ReceiveProduct(int productAmount)
     {
-        SetIronToFactory(productAmount);
-
         for (int i = 0; i < productAmount; i++)
         {
             PlaceNewIronAtReceivePos();
@@ -137,10 +132,6 @@ public class Factory : GenericBuild, IProduce, IReceive
         }
     }
 
-    private void SetIronToFactory(int ironAmount)
-    {
-        ironOnFactory += ironAmount;
-    }
 
     private void PlaceNewIronAtReceivePos()
     {
