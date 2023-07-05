@@ -71,7 +71,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5694131592730339056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: 1}
+  m_LocalPosition: {x: -6, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -91,7 +91,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -1}
 --- !u!1 &5694131593570656401
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e039477f985ba41a2e8c601f43dbc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeOfProductReceive: 0
+  typeOfProductProduce: 1
+  spawnPoint: {fileID: 5694131592145673840}
   receivePoint: {fileID: 5694131592730339056}
 --- !u!1001 &5694131592387116462
 PrefabInstance:
@@ -320,7 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1331971594929448689, guid: 1009e8b7f79318843ba8ad8553426cfb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1331971594929448689, guid: 1009e8b7f79318843ba8ad8553426cfb, type: 3}
       propertyPath: m_LocalRotation.w

@@ -5,8 +5,8 @@ using UnityEngine.UIElements;
 
 public class Factory : GenericBuild, IProduce, IReceive
 {
-    private TypeOfProduct typeOfProductReceive;
-    private TypeOfProduct typeOfProductProduce;
+    [SerializeField] private TypeOfProduct typeOfProductReceive;
+    [SerializeField] private TypeOfProduct typeOfProductProduce;
 
     private GameObject producePrefab;
     private GameObject receivePrefab;
@@ -14,16 +14,17 @@ public class Factory : GenericBuild, IProduce, IReceive
     private List<Product> ironsList = new List<Product>();
     private List<Product> swordsList = new List<Product>();
 
+    private bool isReadyToWork = false;
+    private bool isCoroutineEnabled = false;
 
-
-    //[SerializeField] private GameObject spawnPoint;
+    [SerializeField] private GameObject spawnPoint;
     [SerializeField] private GameObject receivePoint;
 
 
     private int ironOnFactory = 0;
     private int swordsOnFactory = 0;
 
-    // Iron
+    // Iron container config
     private float offsetXIron;
     private float offsetYIron;
     private float offsetZIron;
@@ -35,6 +36,17 @@ public class Factory : GenericBuild, IProduce, IReceive
     private float heightIron = 0;
     private float widthIron = 0;
 
+    // Sword container config
+    private float offsetXSword;
+    private float offsetYSword;
+    private float offsetZSword;
+
+    private int widthLimitSword = 3;
+    private int lengthLimitSword = 3;
+
+    private float lengthSword = 0;
+    private float heightSword = 0;
+    private float widthSword = 0;
 
     private void Start()
     {
@@ -42,6 +54,7 @@ public class Factory : GenericBuild, IProduce, IReceive
         producePrefab = ProductManager.Instance.ChooseProductPrefab(typeOfProductProduce);
 
         CalculateReceiveProductSize(receivePrefab.transform);
+        CalculateProduceProductSize(producePrefab.transform);
     }
 
     private void CalculateReceiveProductSize(Transform transform)
@@ -53,16 +66,24 @@ public class Factory : GenericBuild, IProduce, IReceive
         offsetYIron = boxCollider.size.z * transform.localScale.z;
     }
 
+    private void CalculateProduceProductSize(Transform transform)
+    {
+        var boxCollider = transform.gameObject.GetComponent<BoxCollider>();
+
+        offsetXSword = boxCollider.size.x * transform.localScale.x;
+        offsetZSword = boxCollider.size.y * transform.localScale.y;
+        offsetYSword = boxCollider.size.z * transform.localScale.z;
+    }
+
 
     private void AddReceiveProduct(Vector3 _spawnPos)
     {
-        Debug.Log(_spawnPos + " spawn pos for iron");
-        GameObject productObject = Instantiate(receivePrefab, _spawnPos, receivePrefab.transform.rotation);
-        Product product = productObject.gameObject.GetComponent<Product>();
+        GameObject receiveObject = Instantiate(receivePrefab, _spawnPos, receivePrefab.transform.rotation);
+        Product product = receiveObject.gameObject.GetComponent<Product>();
         ironsList.Add(product);
     }
 
-    private void CalculateNewPosition()
+    private void CalculateNewIronPosition()
     {
         lengthIron++;
         if (lengthIron > widthLimitIron)
@@ -78,9 +99,27 @@ public class Factory : GenericBuild, IProduce, IReceive
         }
     }
 
-    public void ProduceProduct(Vector3 setProductPos)
+    private void CalculateNewSwordPosition()
     {
-        throw new System.NotImplementedException();
+        lengthSword++;
+        if (lengthSword > widthLimitSword)
+        {
+            lengthSword = 0;
+            heightSword++;
+            if (heightSword > lengthLimitSword)
+            {
+                lengthSword = 0;
+                heightSword = 0;
+                widthSword++;
+            }
+        }
+    }
+
+    public void ProduceProduct(Vector3 spawnPoint)
+    {
+        GameObject produceObject = Instantiate(producePrefab, spawnPoint, producePrefab.transform.rotation);
+        Product product = produceObject.gameObject.GetComponent<Product>();
+        swordsList.Add(product);
     }
 
     public void ReceiveProduct(int productAmount)
@@ -91,6 +130,11 @@ public class Factory : GenericBuild, IProduce, IReceive
         {
             PlaceNewIronAtReceivePos();
         }
+
+        if (isReadyToWork && !isCoroutineEnabled)
+        {
+            StartCoroutine(FabricaConvertsIron());
+        }
     }
 
     private void SetIronToFactory(int ironAmount)
@@ -100,15 +144,56 @@ public class Factory : GenericBuild, IProduce, IReceive
 
     private void PlaceNewIronAtReceivePos()
     {
-        CalculateNewPosition();
+        CalculateNewIronPosition();
         Vector3 receivePos = receivePoint.transform.position + new Vector3(lengthIron * offsetXIron, widthIron * offsetYIron, -(heightIron * offsetZIron));
         AddReceiveProduct(receivePos);
-        // iron in sword coroutine, maybe action to check (!!!)
+        isReadyToWork = true;
     }
 
+    private IEnumerator FabricaConvertsIron()
+    {
+        isCoroutineEnabled = true;
+        while (true && isReadyToWork)
+        {
 
-    //private void Update()
-    //{
-    //    Debug.Log(ironOnFactory + " ironOnFactory");
-    //}
+            yield return new WaitForSeconds(1.0f);
+            ConvertIronToSword();
+        }
+    }
+
+    private void ConvertIronToSword()
+    {
+        Debug.Log("Convert");
+        CheckRemainingIron();
+        if (isReadyToWork)
+        {
+            RemoveIron();
+            AddSword();
+        }
+    }
+
+    private void RemoveIron()
+    {
+        Destroy(ironsList[ironsList.Count - 1].gameObject);
+        ironsList.RemoveAt(ironsList.Count - 1);
+    }
+
+    private void AddSword()
+    {
+        CalculateNewSwordPosition();
+        Vector3 swordSpawnPos = spawnPoint.transform.position + new Vector3(lengthSword * offsetXSword, widthSword * offsetYSword, -(heightSword * offsetZSword));
+        ProduceProduct(swordSpawnPos);
+    }
+
+    private void CheckRemainingIron()
+    {
+        if (ironsList.Count <= 0)
+        {
+            StopCoroutine(FabricaConvertsIron());
+            isReadyToWork = false;
+            isCoroutineEnabled=false;
+            ironsList.Clear();
+        }
+    }
+
 }

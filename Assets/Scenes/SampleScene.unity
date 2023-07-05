@@ -924,6 +924,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 247359209683427480, guid: e97516786c3e6d7439e939e42be9569e, type: 3}
+      propertyPath: spawnerProduceTimer
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 247359209683527205, guid: e97516786c3e6d7439e939e42be9569e, type: 3}
       propertyPath: m_Name
       value: Mine
@@ -1104,21 +1108,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5694131592145673840, guid: 216a2e057862e7b46b3d6a6c5918f25a, type: 3}
-      propertyPath: m_Name
-      value: SpawnPoint
-      objectReference: {fileID: 0}
-    - target: {fileID: 5694131592145673840, guid: 216a2e057862e7b46b3d6a6c5918f25a, type: 3}
-      propertyPath: m_TagString
-      value: SpawnPoint
-      objectReference: {fileID: 0}
-    - target: {fileID: 5694131592730339056, guid: 216a2e057862e7b46b3d6a6c5918f25a, type: 3}
-      propertyPath: m_Name
-      value: ReceivePoint
-      objectReference: {fileID: 0}
-    - target: {fileID: 5694131592730339056, guid: 216a2e057862e7b46b3d6a6c5918f25a, type: 3}
-      propertyPath: m_TagString
-      value: ReceivePoint
+    - target: {fileID: 5694131592730339071, guid: 216a2e057862e7b46b3d6a6c5918f25a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.82
       objectReference: {fileID: 0}
     - target: {fileID: 5694131593570656401, guid: 216a2e057862e7b46b3d6a6c5918f25a, type: 3}
       propertyPath: m_Name
