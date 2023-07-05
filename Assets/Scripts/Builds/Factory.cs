@@ -24,7 +24,7 @@ public class Factory : MonoBehaviour, IProduce, IReceive
 
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private GameObject receivePoint;
-    private float timeToWorkFabrica = 2.0f;
+    private float timeToWorkFabrica;
 
     // Iron container config
     private float offsetXIron;
@@ -58,6 +58,7 @@ public class Factory : MonoBehaviour, IProduce, IReceive
     {
         receivePrefab = ProductManager.Instance.ChooseProductPrefab(typeOfProductReceive);
         producePrefab = ProductManager.Instance.ChooseProductPrefab(typeOfProductProduce);
+        timeToWorkFabrica = GameSettings.Instance.GetFabricaSpeed();
         CalculateReceiveProductSize(receivePrefab.transform);
         CalculateProduceProductSize(producePrefab.transform);
         DOTweenTimer = DOTweenTimerDefault;

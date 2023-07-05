@@ -9,7 +9,7 @@ public class Spawner : MonoBehaviour, IProduce
     [SerializeField] private Transform playerPos;
     [SerializeField] private TypeOfProduct typeOfProduct;
     [SerializeField] private Transform spawnPoint;
-    [SerializeField] private float spawnerProduceTimer;
+    private float spawnerProduceTimer;
 
     private GameObject productPrefab;
     private List<Product> readyProducts = new List<Product>();
@@ -28,6 +28,7 @@ public class Spawner : MonoBehaviour, IProduce
     private void Start()
     {
         productPrefab = ProductManager.Instance.ChooseProductPrefab(typeOfProduct);
+        spawnerProduceTimer = GameSettings.Instance.GetSpawnerSpeed();
         CalculateGridSize(productPrefab.transform);
         StartCoroutine(SpawnIron());
     }
