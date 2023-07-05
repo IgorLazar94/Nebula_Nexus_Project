@@ -12,12 +12,13 @@ public class Factory : MonoBehaviour, IProduce, IReceive
     [SerializeField] private Transform playerPos;
     [SerializeField] private TypeOfProduct typeOfProductReceive;
     [SerializeField] private TypeOfProduct typeOfProductProduce;
-
+    [SerializeField] private GameObject particlesContainer;
     private GameObject producePrefab;
     private GameObject receivePrefab;
 
     private List<Product> ironsList = new List<Product>();
     private List<Product> swordsList = new List<Product>();
+    private List<ParticleSystem> listOfParticles = new List<ParticleSystem>();
 
     private bool isReadyToWork = false;
     private bool isCoroutineEnabled = false;
@@ -62,6 +63,32 @@ public class Factory : MonoBehaviour, IProduce, IReceive
         CalculateReceiveProductSize(receivePrefab.transform);
         CalculateProduceProductSize(producePrefab.transform);
         DOTweenTimer = DOTweenTimerDefault;
+        FillParticlesList();
+    }
+
+    private void FillParticlesList()
+    {
+        ParticleSystem[] particlesArray = particlesContainer.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < particlesArray.Length; i++)
+        {
+            listOfParticles.Add(particlesArray[i]);
+        }
+    }
+
+    private void EnableParticles()
+    {
+        foreach (var fx in listOfParticles)
+        {
+            fx.Play();
+        }
+    }
+
+    private void DisableParticles()
+    {
+        foreach (var fx in listOfParticles)
+        {
+            fx.Stop();
+        }
     }
 
     private void CalculateReceiveProductSize(Transform transform)
@@ -164,6 +191,7 @@ public class Factory : MonoBehaviour, IProduce, IReceive
         isCoroutineEnabled = true;
         while (true && isReadyToWork)
         {
+            EnableParticles();
             CheckRemainingIron();
             if (isReadyToWork)
             {
@@ -213,6 +241,7 @@ public class Factory : MonoBehaviour, IProduce, IReceive
             StopCoroutine(FabricaConvertsIron());
             isReadyToWork = false;
             isCoroutineEnabled = false;
+            DisableParticles();
             ironsList.Clear();
             ResetIronsContainer();
         }
