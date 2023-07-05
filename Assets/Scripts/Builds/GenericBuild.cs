@@ -4,14 +4,6 @@ using UnityEngine;
 
 public abstract class GenericBuild : MonoBehaviour
 {
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag(TagList.Player))
-    //    {
-    //        Debug.Log(gameObject.name + " name " + other.gameObject.tag + " other Tag");
-    //        InteractionWithPlayer();
-    //    }
-    //}
+    [SerializeField] protected Transform playerPos;
 
-    //protected abstract void InteractionWithPlayer();
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -85,10 +86,31 @@ public class Spawner : GenericBuild, IProduce
         height = 0;
         for (int i = 0; i < readyProducts.Count; i++)
         {
+            readyProducts[i].transform.DOJump(playerPos.position, 3f, 1, 0.2f);
+            Invoke(nameof(ResetList), 0.25f);
+        }
+    }
+
+    private void ResetProduct(Product product)
+    {
+        Destroy(product.gameObject);
+        readyProducts.Remove(product);
+    }
+
+    private void ResetList()
+    {
+        for (int i = 0; i < readyProducts.Count; i++)
+        {
             Destroy(readyProducts[i].gameObject);
         }
         readyProducts.Clear();
     }
+
+    //public void UpdatePlayerPos(Vector3 _playerPos)
+    //{
+    //    Debug.Log(_playerPos + " update player pos");
+    //    playerPos = _playerPos;
+    //}
 
     public int TransmitProduct()
     {
