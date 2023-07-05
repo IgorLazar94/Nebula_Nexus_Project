@@ -5,10 +5,11 @@ using UnityEngine.UIElements;
 using DG.Tweening;
 using UnityEditor.VersionControl;
 
-public class Factory : GenericBuild, IProduce, IReceive
+public class Factory : MonoBehaviour, IProduce, IReceive
 {
     public bool IsConnectWithPlayer { get; set; }
 
+    [SerializeField] private Transform playerPos;
     [SerializeField] private TypeOfProduct typeOfProductReceive;
     [SerializeField] private TypeOfProduct typeOfProductProduce;
 

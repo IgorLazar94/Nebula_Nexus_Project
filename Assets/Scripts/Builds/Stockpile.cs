@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Stockpile : GenericBuild, IReceive
+public class Stockpile : MonoBehaviour, IReceive
 {
+    [SerializeField] private Transform playerPos;
     [SerializeField] private RectTransform stockpileCanvas;
     [SerializeField] private Transform swordPoolContainer;
     private int swordsOnStockpile = 0;
