@@ -21,7 +21,6 @@ namespace Player
         private void OnEnable()
         {
             onPlayerStopped += EnableStopPlayer;
-
             UI.JoyStickInput.isHasInputDirection += PlayerMove;
             UI.JoyStickInput.isNotHasInputDirection += ResetSpeed;
         }
@@ -29,7 +28,6 @@ namespace Player
         private void OnDisable()
         {
             onPlayerStopped -= EnableStopPlayer;
-
             UI.JoyStickInput.isHasInputDirection -= PlayerMove;
             UI.JoyStickInput.isNotHasInputDirection -= ResetSpeed;
         }
@@ -37,7 +35,6 @@ namespace Player
         private void PlayerMove(Vector3 _inputDirection)
         {
             if (!isReadyToMove) return;
-
             Vector3 playerDirection = new Vector3(_inputDirection.x, 0f, _inputDirection.y);
             rb.velocity = playerDirection * speed;
             PlayerLookForward(playerDirection);
@@ -56,7 +53,7 @@ namespace Player
 
         private void EnableStopPlayer(float time)
         {
-            //StartCoroutine(StopPlayer(time));
+            StartCoroutine(StopPlayer(time));
         }
 
         private IEnumerator StopPlayer(float _time)

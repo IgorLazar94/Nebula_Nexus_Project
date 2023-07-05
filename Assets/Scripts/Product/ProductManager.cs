@@ -13,7 +13,6 @@ public class ProductManager : MonoBehaviour
     {
         MakeSingleton();
     }
-    
 
     public GameObject ChooseProductPrefab(TypeOfProduct typeOfProduct)
     {
@@ -41,6 +40,4 @@ public class ProductManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
     }
-
-
 }

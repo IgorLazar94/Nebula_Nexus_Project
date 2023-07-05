@@ -2,35 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimationFXController : MonoBehaviour
+namespace Player
 {
-    private Animator animator;
-
-    private void OnEnable()
+    public class PlayerAnimationFXController : MonoBehaviour
     {
-        UI.JoyStickInput.isHasInputDirection += SetPlayerMove;
-        UI.JoyStickInput.isNotHasInputDirection += SetPlayerStop;
-    }
+        private Animator animator;
 
-    private void OnDisable()
-    {
-        UI.JoyStickInput.isHasInputDirection -= SetPlayerMove;
-        UI.JoyStickInput.isNotHasInputDirection -= SetPlayerStop;
-    }
+        private void OnEnable()
+        {
+            UI.JoyStickInput.isHasInputDirection += SetPlayerMove;
+            UI.JoyStickInput.isNotHasInputDirection += SetPlayerStop;
+        }
 
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
-    }
+        private void OnDisable()
+        {
+            UI.JoyStickInput.isHasInputDirection -= SetPlayerMove;
+            UI.JoyStickInput.isNotHasInputDirection -= SetPlayerStop;
+        }
 
-    private void SetPlayerMove(Vector3 direction)
-    {
-        // set particles in direction
-        animator.SetBool(AnimationParameters.isMove, true);
-    }
+        private void Start()
+        {
+            animator = GetComponent<Animator>();
+        }
 
-    private void SetPlayerStop()
-    {
-        animator.SetBool(AnimationParameters.isMove, false);
+        private void SetPlayerMove(Vector3 direction)
+        {
+            // set particles in direction
+            animator.SetBool(AnimationParameters.isMove, true);
+        }
+
+        private void SetPlayerStop()
+        {
+            animator.SetBool(AnimationParameters.isMove, false);
+        }
     }
 }
+

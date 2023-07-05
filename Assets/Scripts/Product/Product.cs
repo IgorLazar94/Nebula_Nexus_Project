@@ -10,6 +10,4 @@ public enum TypeOfProduct
 public class Product : MonoBehaviour
 {
     [SerializeField] private TypeOfProduct typeOfProduct;
-
-
 }

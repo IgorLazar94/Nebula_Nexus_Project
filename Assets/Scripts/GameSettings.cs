@@ -6,6 +6,10 @@ public class GameSettings : MonoBehaviour
 {
     public static GameSettings Instance { get; private set; }
 
+    [SerializeField][Range(1f, 10f)] private float playerSpeed;
+    [SerializeField][Range(0.5f, 5f)] private float spawnerSpeed;
+    [SerializeField][Range(1f, 5f)] private float fabricaSpeed;
+
     private void Awake()
     {
         MakeSingleton();
@@ -23,10 +27,6 @@ public class GameSettings : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
     }
-
-    [SerializeField] [Range(1f, 10f)] private float playerSpeed;
-    [SerializeField] [Range(0.5f, 5f)] private float spawnerSpeed;
-    [SerializeField] [Range(1f, 5f)] private float fabricaSpeed;
 
     public float GetPlayerSpeed()
     {
