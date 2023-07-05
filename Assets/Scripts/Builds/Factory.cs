@@ -206,4 +206,22 @@ public class Factory : GenericBuild, IProduce, IReceive
         widthIron = 0;
     }
 
+    private void ResetSwordsList()
+    {
+        widthSword = 0;
+        lengthSword = 0;
+        heightSword = 0;
+        for (int i = 0; i < swordsList.Count; i++)
+        {
+            Destroy(swordsList[i].gameObject);
+        }
+        swordsList.Clear();
+    }
+
+    public int TransmitSwords()
+    {
+        int allProductsCount = swordsList.Count;
+        ResetSwordsList();
+        return allProductsCount;
+    }
 }

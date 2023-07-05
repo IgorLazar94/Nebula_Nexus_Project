@@ -18,21 +18,15 @@ public class PlayerTriggerController : MonoBehaviour
         {
             // all
             InteractionWithSpawner(other);
-            InteractionWithFactory(other);
+            InteractionWithFactoryEmptyInventory(other);
         }
         else
         {
             if (playerInventory.playerCargoType == TypeOfProduct.Iron)
             {
                 InteractionWithSpawner(other);
-                InteractionWithFactory(other);
             }
-
-            if (playerInventory.playerCargoType == TypeOfProduct.Sword)
-            {
                 InteractionWithFactory(other);
-            }
-
         }
 
 
@@ -54,6 +48,22 @@ public class PlayerTriggerController : MonoBehaviour
         }
     }
 
+    private void InteractionWithFactoryEmptyInventory(Collider collider)
+    {
+        if (collider.transform.parent.gameObject.TryGetComponent(out Factory factory))
+        {
+            if (collider.CompareTag(TagList.ReceivePoint))
+            {
+                int tempIron = playerInventory.RemovePlayerIronSlot();
+                factory.ReceiveProduct(tempIron);
+            }
+            if (collider.CompareTag(TagList.SpawnPoint))
+            {
+                GetProductFromFactory(factory);
+            }
+        }
+    }
+
     private void InteractionWithFactory(Collider collider)
     {
         if (collider.transform.parent.gameObject.TryGetComponent(out Factory factory))
@@ -63,21 +73,23 @@ public class PlayerTriggerController : MonoBehaviour
                 int tempIron = playerInventory.RemovePlayerIronSlot();
                 factory.ReceiveProduct(tempIron);
             }
-            if (collider.CompareTag(TagList.SpawnPoint))
+            if (collider.CompareTag(TagList.SpawnPoint) && playerInventory.playerCargoType == TypeOfProduct.Sword)
             {
-
+                GetProductFromFactory(factory);
             }
         }
     }
 
     private void GetProductFromSpawner(Spawner _spawner)
     {
-        var iron = _spawner.TransmitProduct();
-        playerInventory.SetPlayerIronSlot(iron);
+        var ironsProduct = _spawner.TransmitProduct();
+        playerInventory.SetPlayerIronSlot(ironsProduct);
     }
 
-    private void GetProductFromFactory()
+    private void GetProductFromFactory(Factory _factory)
     {
-
+        var swordsProduct = _factory.TransmitSwords();
+        playerInventory.SetPlayerSwordSlot(swordsProduct);
     }
+
 }

@@ -41,20 +41,28 @@ public class PlayerInventory : MonoBehaviour
     {
         ironSlotAmount += value;
         playerCargoType = TypeOfProduct.Iron;
-        ChangeIronViewInvery(value, true);
+        ChangeIronViewInventory(value, true);
+        isBusyInventory = true;
+    }
+
+    public void SetPlayerSwordSlot(int value)
+    {
+        swordSlotAmount += value;
+        playerCargoType = TypeOfProduct.Sword;
+        ChangeSwordViewInventory(value, true);
         isBusyInventory = true;
     }
 
     public int RemovePlayerIronSlot()
     {
         int ironsAmount = ironSlotAmount;
-        ChangeIronViewInvery(ironsAmount, false);
+        ChangeIronViewInventory(ironsAmount, false);
         ironSlotAmount = 0;
         isBusyInventory = false;
         return ironsAmount;
     }
 
-    private void ChangeIronViewInvery(int amount, bool isAddIron)
+    private void ChangeIronViewInventory(int amount, bool isAddIron)
     {
         if (isAddIron)
         {
@@ -86,6 +94,46 @@ public class PlayerInventory : MonoBehaviour
                 {
                     amount++;
                     if (amount > ironsList.Count)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private void ChangeSwordViewInventory(int amount, bool isAddSword)
+    {
+        if (isAddSword)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                if (!swordsList[i].activeSelf)
+                {
+                    swordsList[i].SetActive(true);
+                }
+                else
+                {
+                    amount++;
+                    if (amount > swordsList.Count)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                if (swordsList[i].activeSelf)
+                {
+                    swordsList[i].SetActive(false);
+                }
+                else
+                {
+                    amount++;
+                    if (amount > swordsList.Count)
                     {
                         return;
                     }
